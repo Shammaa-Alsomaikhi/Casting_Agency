@@ -12,6 +12,14 @@ def create_app(test_config=None):
     # app.app_context().push()
     setup_db(app)
     CORS(app, resources={"/": {"origins": "*"}})
+
+    @app.after_request
+    def after_request(response):
+        response.headers.add('Access-Control-Allow-Headers',
+                             'Content-Type, Authorization, true')
+        response.headers.add('Access-Control-Allow-Methods',
+                             'GET, PATCH, PUT, POST,DELETE, OPTIONS')
+        return response
  
 
     """
