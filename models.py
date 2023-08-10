@@ -1,6 +1,7 @@
 import os
 from sqlalchemy import Column, String, Integer, DateTime
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import json
 
 
@@ -8,7 +9,6 @@ import json
 DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')  
 DB_USER = os.getenv('DB_USER', 'shammaaas')  
 DB_NAME = os.getenv('DB_NAME', 'casting_agency')
-# DB_NAME = os.getenv('DB_NAME', 'casting_agency_test')   
 DB_PATH = 'postgresql+psycopg2://{}@{}/{}'.format(DB_USER, DB_HOST, DB_NAME)
 
 
@@ -24,7 +24,9 @@ def setup_db(app, database_path=DB_PATH):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
-    db.create_all()
+    migrate = Migrate(app, db)
+    with app.app_context():
+     db.create_all()
     
 
 def db_drop_and_create_all():
