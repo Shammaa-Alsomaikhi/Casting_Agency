@@ -1,8 +1,89 @@
-### API Reference
+# Casting-Agency
 
-### Getting Started
-- Base URL: At present this app can only be run locally and is not hosted as a base URL. The backend app is hosted at the default, `http://127.0.0.1:5000/`, which is set as a proxy in the frontend configuration. 
-- Authentication: This version of the application does not require authentication or API keys. 
+## Motivation
+
+This project for `Udacity Full Stack web development nanondegree`.
+
+The project covers the following concept 
+- data modeling using `postgres`.
+- API Architecture and Testing and testing using `Flask`.
+- Authorization with RBAC and authentication using Third-Party Authentication auth0.
+- API deployment using `render`.
+
+## Project URLS
+
+Render: https://render-deployment-casting-agency.onrender.com
+
+Localhost: http://127.0.0.1:5000/
+
+## Prerequisite
+This project reuired:
+- python 3: https://www.python.org/downloads/
+- postgresql: https://www.postgresql.org/download/
+- flask: https://pypi.org/project/Flask/
+
+## Getting Started
+
+### Running Locally
+##### Create Your Virtual Environment
+ To initialize and activate a virtualenv, run the following commands:
+  - cd YOUR_PROJECT_DIRECTORY_PATH/
+  - virtualenv --no-site-packages env
+  - source env/bin/activate
+
+##### Install Project Dependencies
+To install project dependencies, run the following command:
+ - pip install -r requirements.txt
+
+##### Database Setup
+To setup your local database:
+ - create your database using 'createdb -U postgres casting_agency' command.
+ - in 'models.py':
+   - uncomment line 9-12 and update thoese lines with your user, host
+   - comment line 13
+
+##### Run Flask Server
+To start running the project locally, run the following command - make sure yor virtual environment is active-:
+ - export FLASK_APP=sample
+ - export FLASK_ENV=development
+ - flask run
+
+## Authentication and authorization
+ - how to setup your auth0: https://auth0.com/docs/applications
+### Roles
+In Auth0 Create three roles:
+
+#### Casting Assistant
+- Can view actors and movies.
+#### Casting Director
+- All permissions a Casting Assistant has.
+- Add or delete an actor from the database.
+- Modify actors or movies.
+#### Executive Producer
+- All permissions a Casting Director has.
+- Add or delete a movie from the database.
+
+### Permissions
+Following permissions should be created under created API settings.
+
+- `get:movies`
+- `patch:movies`
+- `post:movies`
+- `delete:movies`
+- `get:actors`
+- `delete:actors`
+- `post:actors`
+- `patch:actors`
+
+### Testing
+To test the project:
+- create your database using 'createdb -U postgres casting_agency_test' command.
+- update the database url in 'test_app' [line 15].
+- update the tokens in the class with valid tokens. use this link to get token (https://{{YOUR_DOMAIN}}/authorize?audience={{API_IDENTIFIER}}&response_type=token&client_id={{YOUR_CLIENT_ID}}&redirect_uri={{YOUR_CALLBACK_URI}})
+- run the test using 'python test_app.py' command.
+
+
+## API Reference
 
 ### Error Handling
 Errors are returned as JSON objects in the following format:
