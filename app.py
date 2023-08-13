@@ -1,8 +1,14 @@
-from flask import Flask, render_template, request, abort, jsonify
+from flask import (
+   Flask, 
+   render_template, 
+   request, 
+   abort, 
+   jsonify)
 from flask_cors import CORS
 from sqlalchemy import exc
 from models import setup_db, Movie, Actor
 from auth import AuthError, requires_auth
+import sys
 
 
 
@@ -18,6 +24,10 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods',
                              'GET, PATCH, PUT, POST,DELETE, OPTIONS')
         return response
+    
+
+    def index():
+       return jsonify({'message':'welcome to casting agency :)'})
  
 
     """
@@ -56,6 +66,7 @@ def create_app(test_config=None):
                 'message': 'Movie ('+ movie.title +') was successfully deleted'
             }), 200
         except:
+            print(sys.exc_info())
             abort(422)
         
    
@@ -83,6 +94,7 @@ def create_app(test_config=None):
            "total_movies": len(Movie.query.all()),
          })
        except:
+         print(sys.exc_info())
          abort(422)
 
     @app.route('/movies/<int:movie_id>', methods=['GET', 'PATCH'])
@@ -106,6 +118,7 @@ def create_app(test_config=None):
                 'movie': [movie.format()]
                 }), 200
         except:
+            print(sys.exc_info())
             abort(500)
 
 
@@ -145,6 +158,7 @@ def create_app(test_config=None):
                 'message': 'Actor ('+ actor.name +') was successfully deleted'
             }), 200
         except:
+            print(sys.exc_info())
             abort(422)
         
    
@@ -181,6 +195,7 @@ def create_app(test_config=None):
            "total_actors": len(Actor.query.all()),
          })
        except:
+         print(sys.exc_info())
          abort(422)
 
     @app.route('/actors/<int:actor_id>', methods=['GET', 'PATCH'])
@@ -212,6 +227,7 @@ def create_app(test_config=None):
                 'movie': [actor.format()]
                 }), 200
         except:
+            print(sys.exc_info())
             abort(500)
 
 

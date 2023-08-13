@@ -6,9 +6,9 @@ from urllib.request import urlopen
 import os
 
 
-AUTH0_DOMAIN = 'shammaa-coffe-shop.us.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'casting_agency'
+AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+ALGORITHMS = os.environ['ALGORITHMS']
+API_AUDIENCE = os.environ['API_AUDIENCE']
 
 
 

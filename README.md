@@ -1,5 +1,7 @@
 # Casting-Agency
 
+"Casting Agency" is a web application that allows users with different roles to manage actors and movies in a database.
+
 ## Motivation
 
 This project for `Udacity Full Stack web development nanondegree`.
