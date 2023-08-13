@@ -40,8 +40,8 @@ def create_app(test_config=None):
     def get_movies(payload):
         movies = Movie.query.all()
 
-        if len(movies) == 0:
-          abort(404)
+        # if len(movies) == 0:
+        #   abort(404)
 
         return jsonify({
             'success': True,
