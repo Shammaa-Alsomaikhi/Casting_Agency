@@ -26,6 +26,7 @@ def create_app(test_config=None):
         return response
     
 
+    @app.route('/')
     def index():
        return jsonify({'message':'welcome to casting agency :)'})
  
@@ -40,8 +41,8 @@ def create_app(test_config=None):
     def get_movies(payload):
         movies = Movie.query.all()
 
-        # if len(movies) == 0:
-        #   abort(404)
+        if len(movies) == 0:
+          abort(404)
 
         return jsonify({
             'success': True,
